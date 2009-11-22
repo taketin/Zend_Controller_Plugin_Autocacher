@@ -46,13 +46,10 @@ class  Zend_Controller_Plugin_Autocacher extends Zend_Controller_Plugin_Abstract
         foreach ($annotation as $key => $val) {
             $firstStr = substr(trim($val), 0, 1);
             if ('@' != $firstStr && '*' != $firstStr && '' != $firstStr) {
-                $configs[] = trim($val);
+                $config = trim($val);
+                /** do caching */
+                $session->{$config} = $this->_caching($config);
             }
-        }
-
-        /** do caching */
-        foreach ($configs as $key => $config) {
-            $session->{$config} = $this->_caching($config);
         }
     }
 
@@ -64,11 +61,12 @@ class  Zend_Controller_Plugin_Autocacher extends Zend_Controller_Plugin_Abstract
      */
     private function _caching($config)
     {
-        /** cache_dir make  */
-        if (!is_Dir($this->_config->basic->cache_dir)) {
+        /** cachedir make  */
+        if (!is_dir($this->_config->basic->cache_dir)) {
             mkdir($this->_config->basic->cache_dir);
         }
 
+        /** Zend_Cache object setting */
         $cache = Zend_Cache::factory('File', 'File',
                 array(
                         'lifetime'                => NULL,
