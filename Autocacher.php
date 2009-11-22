@@ -10,15 +10,15 @@
 class  Zend_Controller_Plugin_Autocacher extends Zend_Controller_Plugin_Abstract
 {
 
-	/** autocacher setting config object */
+    /** autocacher setting config object */
     private $_config;
 
-	/**
-	 * read annotation
-	 *
-	 * @param obj $request Zend_Controller_Request_Abstract
-	 * @return void
-	 */
+    /**
+     * read annotation
+     *
+     * @param obj $request Zend_Controller_Request_Abstract
+     * @return void
+     */
     public function dispatchLoopStartup(Zend_Controller_Request_Abstract $request)
     {
         /** autocacher setting file */
@@ -56,12 +56,12 @@ class  Zend_Controller_Plugin_Autocacher extends Zend_Controller_Plugin_Abstract
         }
     }
 
-	/**
-	 * do caching
-	 *
-	 * @param string $config
-	 * @return obj Zend_Config Object
-	 */
+    /**
+     * do caching
+     *
+     * @param string $config
+     * @return obj Zend_Config Object
+     */
     private function _caching($config)
     {
         /** cache_dir make  */
