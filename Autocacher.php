@@ -24,9 +24,7 @@ class  Zend_Controller_Plugin_Autocacher extends Zend_Controller_Plugin_Abstract
         /** autocacher setting file */
         $this->_config = new Zend_Config_Ini('../application/configs/autocacher.ini');
 
-        /** session for config object */
-        $session = new Zend_Session_Namespace($this->_config->basic->session_name);
-
+        /** get request */
         $controllerName = ucwords($request->getControllerName()) . 'Controller';
         $actionName = $request->getActionName() . 'Action';
         if ('on' == $this->_config->basic->modules) {
@@ -48,7 +46,7 @@ class  Zend_Controller_Plugin_Autocacher extends Zend_Controller_Plugin_Abstract
             if ('@' != $firstStr && '*' != $firstStr && '' != $firstStr) {
                 $config = trim($val);
                 /** do caching */
-                $session->{$config} = $this->_caching($config);
+                Zend_Registry::set($config, $this->_caching($config));
             }
         }
     }
